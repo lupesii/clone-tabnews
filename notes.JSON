@@ -1,21 +1,33 @@
 {
-    "Versão_Node.JS": [
-      "Com o arquivo .nvmrc, basta executar 'nvm install' para baixar e instalar a versão desejada do Node.js."
-    ],
+  "Versão_Node.JS": [
+    "Com o arquivo .nvmrc, basta executar 'nvm install' para baixar e instalar a versão desejada do Node.js."
+  ],
 
-    "Manifesto": [
-      "code: npm init - Para iniciar um novo projeto Node.js e criar um arquivo package.json.",
-      "code: npm install - Para instalar as dependências listadas no arquivo package.json."
-    ],
+  "Manifesto": [
+    "code: npm init - Para iniciar um novo projeto Node.js e criar um arquivo package.json.",
+    "code: npm install - Para instalar as dependências listadas no arquivo package.json."
+  ],
 
-    "Next Dev": [
-      "Para tornar a visibilidade do servidor, vá até a opção PORTA no terminal.",
-      "Caso a porta não seja criada com o comando, vá na antena localizada na parte inferior e crie a porta."
-    ],
-    
-    "TAREFAS": [
-      "PESQUISAR METODOLOGIAS PARA PROJETOS PESSOAIS",
-      "PESQUISAR MELHORES FORMAS DE DESENVOLVER UMA MILESTONE/ISSUE DE INSEPTION"
-    ]
-  }
-  
+  "Next Dev": [
+    "Para tornar a visibilidade do servidor, vá até a opção PORTA no terminal.",
+    "Caso a porta não seja criada com o comando, vá na antena localizada na parte inferior e crie a porta."
+  ],
+
+  "TAREFAS": [
+    "PESQUISAR METODOLOGIAS PARA PROJETOS PESSOAIS",
+    "PESQUISAR MELHORES FORMAS DE DESENVOLVER UMA MILESTONE/ISSUE DE INSEPTION"
+  ],
+
+  "CUIDADO COM OVERENGIEERING": [
+    "Fazer coisas simples e torna-las complexa é mais facil e menos custoso do que o contrário"
+  ],
+
+  "PoC x MVC": [
+    "PoC: Testes iniciais, com o menor custo possível, feitos para decidir qual caminho o projeto seguirá.",
+    "MVP: Produto minimamente funcional para atender e resolver um problema, de acordo com a decisão tomada a partir dos testes (PoCs)."
+  ],
+
+  "Teste Automatizados": [
+    "npm instal --save-dev jest"
+  ]
+}
