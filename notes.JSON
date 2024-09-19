@@ -28,6 +28,33 @@
   ],
 
   "Teste Automatizados": [
-    "npm instal --save-dev jest"
+    "O que é test Runner? É simplismente um código que possui a capacidade de rodar outros códigos",
+    "Como instalar: npm instal --save-dev jest",
+    "Como criar um arquivo de test: O arquivo deve ser nomeado com nome.test.js, baseado na nossa organização de pastas ele estará dentro da pasta `test`",
+    "O que deve conter: Cada teste é definido dessa forma - test('nome do teste', () => {   expect('Aqui fica o q será testado').toBe('E aqui o que deve ser')})",
+    "TDD significa Desenvolvimento Orientado a Testes ou melhor, por Testes ou a Testes, Basicamente criamos nossos testes para depois criar nossas soluções para que o teste passe"
+  ],
+
+  "Tipos de Testes": [
+    "Testes de Unidade → Os testes de unidade são testes que abordam e agem em cima de unidades do seu sistema, ele garante que pequenas partes de sua aplicação funcionem corretamente ",
+    "Testes de Integração → Esses testes abordam partes um pouco mais complexas, são testes que garantem que combinações de unidades se integrem corretamente",
+    "Testes E2E → São testes do inicio ao fim, até mesmo a parte do front-end, são testes mais pesados e demorados"
+  ],
+
+  "API (Application Programming Interface)": [
+    "API é basicamente uma forma de sistemas se comunicarem, é uma interface de comunicação programática, isso quer dizer que ela contém apenas o file das informações, sem toda parte gráfica para o usuário",
+    "Para testar a requisição de uma API no protocolo HTTP, use 'curl http://localhost:3000/api/status -v'"
+  ],
+
+  "Virtual Host": [
+    "Um servidor autorizativo pode ter vários Hosts em sua caixinha, isso quer dizer que podemos acessar diversos sites de um mesmo servidor, basta explicarmos através do Cabeçalho qual Host queremos",
+    "Teste com somento o IP do servidor: curl https://76.76.21.21 --insecure --verbose",
+    "Note que o cabeçalho da nossa requsisção está indicando como destino final o HOST, quando a resposta do servidor é mandada é atribuido no cabeçalho o status(308), indicando um redicionamento para o IP definido em LOCATION",
+    "Adicionando --header ‘Host: fintab.com.br’ na requisição, indicamos para o servidor qual host realmente desejamos, então assim, nos é retornado a página."
+  ],
+
+  "Versioning": [
+    "URI Path Versioning: Nessa forma o **client** informa pela **URL** qual versão da **API** vai utilizar, por exemplo: **http://localhost:3000/api/v1/status**, **http://localhost:3000/api/v2/status**",
+    "Header Versioning: Nessa forma o Client envia pelo cabeçalho da request qual versão da API irá utilizar "
   ]
 }
