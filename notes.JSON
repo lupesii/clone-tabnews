@@ -56,5 +56,20 @@
   "Versioning": [
     "URI Path Versioning: Nessa forma o **client** informa pela **URL** qual versão da **API** vai utilizar, por exemplo: **http://localhost:3000/api/v1/status**, **http://localhost:3000/api/v2/status**",
     "Header Versioning: Nessa forma o Client envia pelo cabeçalho da request qual versão da API irá utilizar "
+  ],
+
+  "Docker?": [
+    "O Docker surgiu para resolver de forma prática e simples um problema recorrente na parte de testes locais, onde cada diferença em cada maquina poderia torna a execução da aplicação diferente, antes dele utiliza diversas VMs(Virtual Machine) para cada área do sistema, porém, dessa forma, se utilizava muito poder operacional, visto que, é necessário criar um SO(Sistema Operacional novo para cada VM. Com o Docker não é necessário isso, podemos criar um 'Container em nosso própria maquina que isola diversos processo e separa os recursos, sem a necessidade da criação de outro SO",
+    "Na prática o docker processa seu Container baseado na imagem passada a ele",
+    "É utilizado o Docker HUb como repositório de imagens",
+    "As configurações do container são definidas no arquvio 'compose.yaml' que deve estar na pasta RAIZ, quando configurado basta digitarmos 'docker compose up'",
+    "Como saber o status do meu container, use o comando docker ps -a, onde o -a significa todos, incluindo containers que não estejam sendo executados",
+    "podemos colocar o -d para usar o docker em segundo plano",
+    "Mas e se eu quiser reiniciar meu container? Usamos o comando docker compose up -d --force-recreate"
+  ],
+
+  "Client PSQL": [
+    "Para baixarmos utilizaremos o comando: sudo apt install postgresql-client",
+    "Para conectarmos ao nosso banco usaremos: psql --host:localhost --username=postgres --port=5432","Para sairmos usamos *barraInvertida*q"
   ]
 }
