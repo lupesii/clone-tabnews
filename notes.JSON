@@ -65,11 +65,25 @@
     "As configurações do container são definidas no arquvio 'compose.yaml' que deve estar na pasta RAIZ, quando configurado basta digitarmos 'docker compose up'",
     "Como saber o status do meu container, use o comando docker ps -a, onde o -a significa todos, incluindo containers que não estejam sendo executados",
     "podemos colocar o -d para usar o docker em segundo plano",
-    "Mas e se eu quiser reiniciar meu container? Usamos o comando docker compose up -d --force-recreate"
+    "Mas e se eu quiser reiniciar meu container? Usamos o comando docker compose -f infra/compose.yaml up -d --force-recreate"
   ],
 
   "Client PSQL": [
     "Para baixarmos utilizaremos o comando: sudo apt install postgresql-client",
-    "Para conectarmos ao nosso banco usaremos: psql --host:localhost --username=postgres --port=5432","Para sairmos usamos *barraInvertida*q"
+    "Para conectarmos ao nosso banco usaremos: psql --host:localhost --username=postgres --port=5432",
+    "Para sairmos usamos *barraInvertida*q"
+  ],
+
+  "PG": [
+    "Para instalar: npm install pg",
+    "Vamos utilizar o plugin do postgres para conseguir nos comunicamos com o banco de dados, pois esse plugin consegue 'conversar' no mesmo protocolo do banco",
+    "Primeiramente criamos o módulo do `database.js` e exportamos o objeto query que executa a função query. Nesse módulo importamos o client do pg e criamos a função query, que dentro de mesma possuie, o objeto client que recebe todos as credenciais para se conectar ao banco, abrimos a conexão executamos a query e fechamos a conexão, sempre colocanco AWAIT para que execução não atropele as outras"
+  ],
+
+  "Variaveis de Ambiente": [
+    "Variaveis de ambiente são informações que o ambiente passa de forma dinâmica para o sistema, sem a necessidade de um hadcoded",
+    "Para o `database.js` utilizar variavies de ambiente, temos que trocar os hardcoded e adicionar `process.env.nomeVariavel`",
+    "Podemos passar as pelo prompt como por exemplo POSTGRES_PASSWORD=LOCAL_PASSWORD, LEMBRE-SE DE COLOCAR UM ESPAÇO ANTES DO COMANDO PARA NÃO SALVAR DADOS SENSIVEIS NO HISTORICO",
+    "Porém existe um jeito mais fácil, o next vem com um módulo instalado, o dotenv, com ele você pode declarar as vareiaveis de ambiente em um arquivo .env na raiz do projeto"
   ]
 }
