@@ -85,5 +85,14 @@
     "Para o `database.js` utilizar variavies de ambiente, temos que trocar os hardcoded e adicionar `process.env.nomeVariavel`",
     "Podemos passar as pelo prompt como por exemplo POSTGRES_PASSWORD=LOCAL_PASSWORD, LEMBRE-SE DE COLOCAR UM ESPAÇO ANTES DO COMANDO PARA NÃO SALVAR DADOS SENSIVEIS NO HISTORICO",
     "Porém existe um jeito mais fácil, o next vem com um módulo instalado, o dotenv, com ele você pode declarar as vareiaveis de ambiente em um arquivo .env na raiz do projeto"
+  ],
+
+  "Migrations": [
+    "Nos tempos das pedras, os desenvolvedores, enquanto desenvolviam a aplicação criavam e motificavam o banco de dados, porém essas modificações eram locais, havendo a possibilidade de quando for passada para a produção, alguma alteração feito no ambiente de desenvolvimento não executar ou ser esquecida. Com esse objetivo foram criadas as migrations, que migram nosso banco de uma verso a outro de forma dinâmica",
+    "Elas avaliam as mudanças ja executadas e as novas e executa somente as novas, não correndo o risco de que certas coisas fiquem inconsistentes",
+    "Instalamos o módulo node-pg-migrate, também é necessario baixar o módulo dotenv para ler o arquivo .env.development",
+    "Usamos o comando node-pg-migrate create *nome se quiser* para criar um arquivo de migração",
+    "Na parte up, são todas as alterações que queremos fazer no banco",
+    "Ba parte down, são todas as alterações que queremos desfazer no banco, como fazer um drop"
   ]
 }
