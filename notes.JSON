@@ -32,7 +32,8 @@
     "Como instalar: npm instal --save-dev jest",
     "Como criar um arquivo de test: O arquivo deve ser nomeado com nome.test.js, baseado na nossa organização de pastas ele estará dentro da pasta `test`",
     "O que deve conter: Cada teste é definido dessa forma - test('nome do teste', () => {   expect('Aqui fica o q será testado').toBe('E aqui o que deve ser')})",
-    "TDD significa Desenvolvimento Orientado a Testes ou melhor, por Testes ou a Testes, Basicamente criamos nossos testes para depois criar nossas soluções para que o teste passe"
+    "TDD significa Desenvolvimento Orientado a Testes ou melhor, por Testes ou a Testes, Basicamente criamos nossos testes para depois criar nossas soluções para que o teste passe",
+    "Podemos usar um regex, um filtro, para rodar teste somente, por exemplo, de uma pasta"
   ],
 
   "Tipos de Testes": [
@@ -80,19 +81,50 @@
     "Primeiramente criamos o módulo do `database.js` e exportamos o objeto query que executa a função query. Nesse módulo importamos o client do pg e criamos a função query, que dentro de mesma possuie, o objeto client que recebe todos as credenciais para se conectar ao banco, abrimos a conexão executamos a query e fechamos a conexão, sempre colocanco AWAIT para que execução não atropele as outras"
   ],
 
-  "Variaveis de Ambiente": [
+  "Variaveis de Ambiente - .env": [
     "Variaveis de ambiente são informações que o ambiente passa de forma dinâmica para o sistema, sem a necessidade de um hadcoded",
     "Para o `database.js` utilizar variavies de ambiente, temos que trocar os hardcoded e adicionar `process.env.nomeVariavel`",
     "Podemos passar as pelo prompt como por exemplo POSTGRES_PASSWORD=LOCAL_PASSWORD, LEMBRE-SE DE COLOCAR UM ESPAÇO ANTES DO COMANDO PARA NÃO SALVAR DADOS SENSIVEIS NO HISTORICO",
-    "Porém existe um jeito mais fácil, o next vem com um módulo instalado, o dotenv, com ele você pode declarar as vareiaveis de ambiente em um arquivo .env na raiz do projeto"
+    "Porém existe um jeito mais fácil, o next vem com um módulo instalado, o dotenv, com ele você pode declarar as variaveis de ambiente em um arquivo .env na raiz do projeto",
+    "O arquivo dotenv é apenas um arquivo de texto comum, não possui nenhuma lógica nele, então caso necessário uma DATABASE_URL utilizando interpolação é preciso baixar o módulo dotenv-expend que EXPANDE as opções dos arquivos dotenv"
   ],
 
-  "Migrations": [
+  "Migrations - Linha de Comando": [
     "Nos tempos das pedras, os desenvolvedores, enquanto desenvolviam a aplicação criavam e motificavam o banco de dados, porém essas modificações eram locais, havendo a possibilidade de quando for passada para a produção, alguma alteração feito no ambiente de desenvolvimento não executar ou ser esquecida. Com esse objetivo foram criadas as migrations, que migram nosso banco de uma verso a outro de forma dinâmica",
     "Elas avaliam as mudanças ja executadas e as novas e executa somente as novas, não correndo o risco de que certas coisas fiquem inconsistentes",
     "Instalamos o módulo node-pg-migrate, também é necessario baixar o módulo dotenv para ler o arquivo .env.development",
     "Usamos o comando node-pg-migrate create *nome se quiser* para criar um arquivo de migração",
     "Na parte up, são todas as alterações que queremos fazer no banco",
-    "Ba parte down, são todas as alterações que queremos desfazer no banco, como fazer um drop"
+    "Na parte down, são todas as alterações que queremos desfazer no banco, como fazer um drop"
+  ],
+
+  "Migrations - EndPoint": [
+    "Para criarmos o EndPoint, precisamos primeiramente importar o migrationRunner, que irá rodar as migrações. Quando importado utilizamos o comando com await(já que é um comando assincrono) e indicamos a ele um objeto com diversas propriedades, como, a url do banco, o diretório das migrações, a direção que irá executar, etc",
+    "Para os processos funcionarem de forma correta não podemos roda-los de forma paralela, já que cada test muda o state do banco, ficando complicado a execução dos mesmo, para fazermos isso, precisamos colocar no comando que executamos o parâmetro --runInBand",
+    {
+      "Usando Client para conectar ao modulo node-pg-migrate": [
+        "Estamos fazendo isso para adicionar uma lógica de segurança a conexão do cliente, já que através da URL não é possivel utilizar uma lógica para, por exemplo, ssl ou certificados",
+        "Para isso devemos desenvolver uma função no DATABASE.JS que cria para nós uma objeto client e exportamos essa função. Em seguida implementarmos no endpoint das migrations e lembre-se de fechar as conexões, pois como escrito no documento 'O fechamento do client fica por conta do usuário'"
+      ]
+    },
+    {
+      "Dry Run": [""]
+    }
+  ],
+
+  "jest.config.js": [
+    "O jest possui algumas limitações que podem nos atrapalhar ao decorrer do projeto, como: não transpilar os arquivos, não conseguir ler arquivos .env, não conseguir usar absolute imports",
+    "Podemos resolver essas inconsistências usando o arquivo de configuração do jest, jest.config.js",
+    "Nele, primeiramente, precisamos importar o modulo next/jest para o next dar 'poderes' ao jest. Feito isso ahora precisamos executar a função factory desse modulo nextJest() e guarda-la em uma constante(já que precisamos guardar a nova função gerada para executarmos). Depois precisamos executar essa função, passando junto um objeto com as configurações, e guardar em outra constante, para que no final possamos exportar.",
+    {
+      "configurações do objeto": [
+        "moduleDirectories: ['node_modules', '<rootDir>']"
+      ]
+    }
+  ],
+
+  "join from node:path": [
+    "Usamos esse módulo para evitamos o caminho errado em diferentes ambientes operacionais, por exemplo, o Linux usar 'infra/migrations', já o windows usa a barra invertida, causando assim um erro no ambiente Windows. O que esse comando faz é juntar e formar os caminhos, sem ocorrer esse problema",
+    "join('infra', 'migrations')"
   ]
 }
