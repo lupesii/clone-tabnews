@@ -126,5 +126,64 @@
   "join from node:path": [
     "Usamos esse módulo para evitamos o caminho errado em diferentes ambientes operacionais, por exemplo, o Linux usar 'infra/migrations', já o windows usa a barra invertida, causando assim um erro no ambiente Windows. O que esse comando faz é juntar e formar os caminhos, sem ocorrer esse problema",
     "join('infra', 'migrations')"
+  ],
+
+  "Branch": [
+    {
+      "Nivel 1": [
+        "A branchs do git são como copias do projeto, onde em cada cópia é possivel fazer alterações diferentes, sem que uma afete a outro necessáriamente",
+        "Importante destacas que essa explicação não é a melhor"
+      ],
+
+      "Nivel 2": [
+        "Caso o git fizesse realmente um cópia do projeto, projetos com grandes volumes de dados demandariam tempo para trocar e criar branchs novas, e não é isso que acontece, eles são quase instântaneas",
+        "Então como é feio, pode se entender que o git apenas recria um novo histórico, e nesse histórico os commits apontam para os seus respectivos blobs",
+        "Porém ainda não é a correta"
+      ],
+
+      "Nivel 3": [
+        "O git não clona nada, o que ele faz é mudar o apontamento, as branchs são como 'apelidos' para commits, pois ela referenciam commits",
+        "Então quando mudamos de branch, apenas redirecionamos o apontamento do HEAD, que aponta para a branch, que por sua vez aponta para o commit. Assim nada é clonado, nem o histórico e nem a branch"
+      ],
+
+      "git branch -d": [
+        "Quando deletamos uma branch, não deletamos os commits incluidos na mesma, apenas tiramos o ponteiro que referenciava ao ultimo commit dessa branch, logo usando a lógica o necessário para recuperar uma branch perdida é apenas encontrar novamente o ultimo commit dela(normalmente aparece no terminal), fazer um checkout para ele e criar uma branch, ou melhor um ponteiro, assim nada será perdido",
+        "Caso você tenha perdido o hash do commit podemos usar o comando git reflog que abre o log de todas as referencias e por ele procurar o hash do commit"
+      ],
+
+      "Merge": [
+        "O merge de forma simples, apenas move o ponteiro da branch target para o mesmo commit da branch source.",
+        "Para fazermos o merge devemos primeiro entrar na branch que queremos atualizar (target) colocarmos o comando 'git merge branch-source', onde branch-source vai ser a branch que queremos como base. Caso tudo ocorra bem, fast-foward, não aparecerá nem um problema"
+      ]
+    }
+  ],
+
+  "Estratégias de branch": [
+    {
+      "Trunk-Based Development": [
+        "Nessa estratégia todos os commits realizados são continuamente integrados com a branch trunk, ou melhor tronco, no nosso caso a main. Isso de inicio parece perigoso, pois diversos programadores integrando diferentes features direto na branch de produção, parece que vai explodir, por isso são adotadas algumas medidas para impedir isso",
+        "FEATURE FLAG - Nessa medida, as features tem flags, marcadores, que sinalizam ao sistema o que ele deve exibir para cada usuário, um exemplo simples seria, features com flags de 'beta tester' serão exibidas para quem é 'beta tester' e não para o restante",
+        "Além disso é muito importante sempre estar integrando constantemente o trunk, para diminuir a entropia entre os desenvolvedores, fazendo até mesmo commits parciais",
+        "BRANCH BY ABSTRACTION -  Nessa medida são utilizadas abstrações para realizar grandes mudanças no sistema, por exemplo, os desenvolvedores utilizam um modulo A que irá ser mudado, então é adicionado uma abstração que liga ao módulo, e cada feature irá se ligar a essa abstração e quando todos estiverem integrados com a ela, a mesma poderá trocar o modulo na qual ela se liga, fazendo com que essa alteração não cause tanto prejuizo"
+      ],
+
+      "Feture Branch": [
+        "Na branch main, serão commitados somente alterações prontas para o deploy, enquanto as features são desenvolvidas em outras branchs que posteriormente são integradas a main. Enquanto cada feature está sendo desenvolvida, o projeto estará também avançando, sendo então, importantissimo a correção de conflitos ao integrar a main",
+        "O github envolve essa estratégia com ferramentas exelentes de visualização e revisão de código, sendo até chamada de github flow"
+      ],
+
+      "Git Flow": [
+        "Essa estratégia é focada para sistemas que mantém multiplas versões do mesmo software. Sendo bem complexa",
+        "Na main serão commitadas apenas as verções, a programação é desenvolvida na branch develop que também se ramifica para outras branchs features. Importante destacar que caso seja encontrada um bug critico em produção é criada a partir da main uma branch chamada de hotfix que conserta o bug e posteriormente é integrada na main e na branch develop.",
+        "Quando uma feature é completada ela é revisada e integrada a branch develop, quando tudo nessa branch for completado, é passado para uma branch chamada de release, onde as modificações são revisadas minuciosamente, onde se for encontrado um bug é concertado direto na mesma branch e quando tudo estiver completo, integramos com a branch main, criando uma nova versão do software",
+        "Sempre importante manter as branchs develop e feature no mesmo 'nivel' da main"
+      ]
+    }
+  ],
+
+  "Estabilizar npm run dev": [
+    "Queremos que todas as dependencias do nosso sistema sejam diretamente acionadas apenas ao executar um comando, e por enquanto isso não ocorre, pois o sistema de migrations deve ser rodado separadamente. Colocando ele no mesmo comando do run dev, é visto um problema, depois de executar o up dos serviçoes postgres, que estam rodando no -d, passam direto para o comando das migrations, causando um problema de race condition, onde as migrations são executadas antes mesmo que o postgres consiga fazer conexões",
+    "Então criamos o script 'wait-for-postgres' que verifica o estado do postgres até que ele retorne estar pronto.",
+    "Nesse script importamos o exec do node:child_process, uma função que cria um novo processo de shell e executa um comando nele, que usaremos para executar um comando no qual o docker retornará a condição do postgres, docker exec postgres-dev pg_isready --host localhost, quando executado ele chama uma função de callback que procura na resposta do comando 'accepting connections', caso não exista ele executa novamente a verificação até que retorne a resposta esperada, siginificando assim, que o postgres está pronto para conexões"
   ]
 }
