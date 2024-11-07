@@ -185,5 +185,23 @@
     "Queremos que todas as dependencias do nosso sistema sejam diretamente acionadas apenas ao executar um comando, e por enquanto isso não ocorre, pois o sistema de migrations deve ser rodado separadamente. Colocando ele no mesmo comando do run dev, é visto um problema, depois de executar o up dos serviçoes postgres, que estam rodando no -d, passam direto para o comando das migrations, causando um problema de race condition, onde as migrations são executadas antes mesmo que o postgres consiga fazer conexões",
     "Então criamos o script 'wait-for-postgres' que verifica o estado do postgres até que ele retorne estar pronto.",
     "Nesse script importamos o exec do node:child_process, uma função que cria um novo processo de shell e executa um comando nele, que usaremos para executar um comando no qual o docker retornará a condição do postgres, docker exec postgres-dev pg_isready --host localhost, quando executado ele chama uma função de callback que procura na resposta do comando 'accepting connections', caso não exista ele executa novamente a verificação até que retorne a resposta esperada, siginificando assim, que o postgres está pronto para conexões"
+  ],
+
+  "Estabilizar npm run test": [
+    "Agora temos outro problema, quando executamos o comando de teste sozinho, ele retorna erro em todos os testes, isso acontece pois os outros serviços não estão executando juntos, causando assim o erro.",
+    "Primeiramente podemos começar adicionando ao comando a parte que levanta o docker e espera ele estar pronto, npm run services:up && npm run wait-for-postgres",
+    "Ainda continua dando erro, isso porque o servidor não está sendo executado junto, o problema é: o servidor não roda em modo detached",
+    "Usaremos então o concurrently para executar comando concorrentes, concurrently -n next,jest --hide next -k -s command-jest 'next dev' 'jest --runInBand'",
+    {
+      "Parâmetros": [
+        "-n, abreviação de --names, nomeia o log de cada processo.",
+        "--hide, esconde os logos de determinado processo",
+        "-k, abreviação de --kill-others, mata todos os outros processo quando um retorna sucesso",
+        "-s, abreviação de --sucess, retorna 0 quando um processo desejado retorne 0 também"
+      ]
+    },
+    "Porém ainda existe a possibilidade de que acontece uma race condition, então utilizaremos o módulo async-retry e um orchestrator para evitar isso.",
+    "Primeiramente devemos criar uma função no orchestrator para esperar um json vindo do endpoint /status, e utilizamos o async-retry para refazer essa função diversas vezes.",
+    "Feito isso, devemos importar o orchestrator nos testes e faze-lo rodar antes de todos, junto com o 'clearDatabase'.Além de aumentarmos o timeout do jest e a quantidade de tentativas do async-retry"
   ]
 }
