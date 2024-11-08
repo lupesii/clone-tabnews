@@ -221,6 +221,7 @@
     "actions/checkout, para clonar nosso projeto dentro da maquina virtual do workflow",
     "actions/setup-node, para definirmos a versão do nodejs",
     "npm ci, que irá baixar as dependências do package-lock, ou seja, nas mesmas versões utilizadas no desenvolvimento do projeto",
-    "npm test"
+    "npm test",
+    "Agora que todos os testes automatizados conseguem rodar antes de um merge, caso eles falhem o botão de merge deve ser desabilitado, e isso deve ser feito nas rules de branch"
   ]
 }
