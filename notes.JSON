@@ -203,5 +203,24 @@
     "Porém ainda existe a possibilidade de que acontece uma race condition, então utilizaremos o módulo async-retry e um orchestrator para evitar isso.",
     "Primeiramente devemos criar uma função no orchestrator para esperar um json vindo do endpoint /status, e utilizamos o async-retry para refazer essa função diversas vezes.",
     "Feito isso, devemos importar o orchestrator nos testes e faze-lo rodar antes de todos, junto com o 'clearDatabase'.Além de aumentarmos o timeout do jest e a quantidade de tentativas do async-retry"
+  ],
+
+  "CI - Continuous Integration": [
+    "Agora começaremos a desenolver o CI do nosso sistema, vamos utilizar o github actions para que tudo ocorra bem. O github actions é um funcionalidade do github que pode executar diversas actions(tanto do marketplace quanto programadas por você mesmo) com gatilhos, por exemplo um pull request",
+    "Para a configuração do github actions precisamos criar uma pasta '.github' na raiz do projeto e dentro dela outra pasta 'workflows' e por fim dentro dessa o arquivo do actions, tests.yaml",
+    {
+      "Estrutura do arquivo": [],
+      "Workflow": "Testes Automatizados",
+      "Events": "Pull Request",
+      "Job": "Jest",
+      "Runner": "Ubuntu",
+      "Step": "Instalar dependencias",
+      "step": "Rodar baterias"
+    },
+    "Dentro do arquivo tests.yaml, vamos usar o sistema Ubuntu em sua ultima versão. Além disso, serão 4 passos: ",
+    "actions/checkout, para clonar nosso projeto dentro da maquina virtual do workflow",
+    "actions/setup-node, para definirmos a versão do nodejs",
+    "npm ci, que irá baixar as dependências do package-lock, ou seja, nas mesmas versões utilizadas no desenvolvimento do projeto",
+    "npm test"
   ]
 }
