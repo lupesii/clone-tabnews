@@ -1,0 +1,22 @@
+#Nome do action
+name: Automated Test
+
+on: pull_request
+
+jobs:
+  jest:
+    name: Jest Ubuntu
+    runs-on: ubuntu-latest
+    steps:
+      # Habilita, 'clona', o nosso código para dentro da máquina virtual do workflow
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/hydrogen
+
+      # Baixa as dependências do package-lock, ou seja, nas mesmas versões utilizadas no desenvolvimento do projeto
+      - run: npm ci
+
+      # Executa os testes
+      - run: npm test
