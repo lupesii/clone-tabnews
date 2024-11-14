@@ -223,5 +223,17 @@
     "npm ci, que irá baixar as dependências do package-lock, ou seja, nas mesmas versões utilizadas no desenvolvimento do projeto",
     "npm test",
     "Agora que todos os testes automatizados conseguem rodar antes de um merge, caso eles falhem o botão de merge deve ser desabilitado, e isso deve ser feito nas rules de branch"
+  ],
+
+  "EsLint": [
+    "Vamos usar o EsLint para mantermos a qualidade do nosso código, evitando erros bobos ou disperdisios de memória e linha, como variaveis fantasmas(nunca são chamadas). Para isso usamos o próprio next para configurar o eslint para nós, executando o comando next lint. Feito isso, instalamos ele no modo estrito e o arquivo de configuração já é criado e até configurado com uma biblioteca de regras, porém queremos uma biblioteca mais restrita, então baixamos a extensão do EsLint e colocamos no arquivo mais uma lista de regras 'eslint:recommended'.",
+    "Porém olhando a documentação do nex lint, lá especifica que esse comando por padrão não abrange todo o escopo do projeto, então temos que colocar --dir . para que todo o projeto seja abrangido. Com isso descobrimos mais um problema, o eslint não identifica os comando dos arquivos tests, logo temos que baixar uma biblioteca chamada eslint-plugin-jest e colocarmos no arquivo de configuração a lista de regras para que ele não conste mais como erro esses arquivos",
+    "Fazemos isso também como o prettier, baixamos o eslint-config-prettier e colocamos também no arquivo de configuração",
+    "Por fim, programamos o linting.yaml para adicionar mais um job e executar o eslint"
+  ],
+
+  "Linter de commit": [
+    "Sempre importante manter padrões e convensões para todo o projeto, e o commit não foge disso, pensando nisso foi criada uma organização chamada 'conventional commits' que busca essa conversão de maneria que cada mensagem de um commit seja clara e objetiva ",
+    "Para verificarmos isso temos o linter de commit, ou melhor, commitlint, que irá verificar se nossas mensagens estão de acordo com o módulo de regras utilizado. Primeiro baixamos o commitlint/cli e logo depois o módulo commitlint-config-conventional. Criamos o arquivo de configuração commitlint.config.js e exportamos o modulo commitlint-config-conventional. Podemos testar o linter pelo npx, exemplo de um pormpt seria: echo \"Teste\" | npx commitlint"
   ]
 }
