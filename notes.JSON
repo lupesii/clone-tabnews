@@ -250,5 +250,15 @@
         "Você percebe que a mensagem de um commit antigo não está seguindo o padrão, o que fazer? Podemos usar o rebase interativo para resolver isso, usamos o git rebase -i *onde será a base*, com isso vai abrir uma tela cheia de opções e com os commits selecionados(importante destacas que os commits serão aplicados em ordem decrescente), onde pode se ver que a segunda é exatamente o que nós queremos, use o commit e altere sua mensagem, então uma tela será aberta somente para isso e após fechar, tudo pronto"
       ]
     }
+  ],
+
+  "Hooks": [
+    "Hooks são como ganchos, ou gatilhos do próprio git que são executados quando uma ação é feita, assim executando algum script dentro dele. Porém ele possui algumas limitações, como por exemplo de não poder ser vercionado, pensando nisso o projeto husky, no qual muda o endereço dos hooks para arquivos da raiz e faz com que eles sejam executados e vercionados.",
+    "Queremos que um script de linting seja executados antes da criação do commit, para isso devemos criar um arquivo de texto dentro da pasta husky que irá executar um comando shell no terminal. npx commitlint --edit $1, nele indicamos o caminho do commit que ele deve analisar"
+  ],
+
+  "Commitizen": [
+    "Existe outra ferramente que nos ajuda a criar mensagens de commits boas e bens estruturadas seguindo a convensão, essa ferramenta é o commitizen. Após instalar o commitizen, como a documentação pede executamos o comando 'npx commitizen init cz-conventional-changelog --save-dev --save-exact' que irá dar o setup inicial no commmit",
+    "Para exeucar, colocamos no package.json um script chamado commit, que irá executar o commitizen através do comando cz"
   ]
 }
