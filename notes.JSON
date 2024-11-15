@@ -234,6 +234,21 @@
 
   "Linter de commit": [
     "Sempre importante manter padrões e convensões para todo o projeto, e o commit não foge disso, pensando nisso foi criada uma organização chamada 'conventional commits' que busca essa conversão de maneria que cada mensagem de um commit seja clara e objetiva ",
-    "Para verificarmos isso temos o linter de commit, ou melhor, commitlint, que irá verificar se nossas mensagens estão de acordo com o módulo de regras utilizado. Primeiro baixamos o commitlint/cli e logo depois o módulo commitlint-config-conventional. Criamos o arquivo de configuração commitlint.config.js e exportamos o modulo commitlint-config-conventional. Podemos testar o linter pelo npx, exemplo de um pormpt seria: echo \"Teste\" | npx commitlint"
+    "Para verificarmos isso temos o linter de commit, ou melhor, commitlint, que irá verificar se nossas mensagens estão de acordo com o módulo de regras utilizado. Primeiro baixamos o commitlint/cli e logo depois o módulo commitlint-config-conventional. Criamos o arquivo de configuração commitlint.config.js e exportamos o modulo commitlint-config-conventional. Podemos testar o linter pelo npx, exemplo de um pormpt seria: echo \"Teste\" | npx commitlint",
+    {
+      "ci": [
+        "Vamos criar um job para o commitlint, e nesse job haverá duas coisas distintas: primeiro, no actions/checkout vamos por um with fetch-depth: 0, para indicar que queremos baixar todos os commits do pull request; Segundo, o ultimo comando run parece complicado, mas é facil de se entender: npx commitlint --from ${{ github.event.pull_request.head.sha }}~${{ github.event.pull_request.commits }} --to ${{ github.event.pull_request.head.sha }} --verbose (ele 'diz', execute o commitlint do hash do head~quantidade de commits até o hash do commit do head)"
+      ]
+    }
+  ],
+
+  "Git Rebase": [
+    "Vamos supor que você em um dia, cria uma feature branch nova a partir da main, porém esqueceu de fazer o pull, deixando assim ela desatualizada. Você só percebe isso quando vai tentar fazer o pull request e acusa conflitos na branch, você fica desesperado, pensando: 'P**A QUE PARIU F*D*U O QUE EU VOU FAZER AGORA'.",
+    "Calma meu companheiro, existe o ilustre comando git rebase, que altera a base de um commit o movendo para onde deseja, você executa o comando e BOOM vários erros, e novamente entra em desespero e vê que é possivel abortar a operação, e assim faz. Mas o problema não se resolveu, você executa o comando novamente e acalma, afinal você é aluno do curso.dev, e vê o status do repositório e percebe que o git está apenas pedindo para resolver um conflito em um arquivo, você pede para exibir o conflito e é apenas uma pequena parte onde o git não sabe o que escolher e deixou nas suas mãos, você os resolve e quando tudo já está em staging executa git rebase --continue e pronto, tudo arrumando",
+    {
+      "Interativo": [
+        "Você percebe que a mensagem de um commit antigo não está seguindo o padrão, o que fazer? Podemos usar o rebase interativo para resolver isso, usamos o git rebase -i *onde será a base*, com isso vai abrir uma tela cheia de opções e com os commits selecionados(importante destacas que os commits serão aplicados em ordem decrescente), onde pode se ver que a segunda é exatamente o que nós queremos, use o commit e altere sua mensagem, então uma tela será aberta somente para isso e após fechar, tudo pronto"
+      ]
+    }
   ]
 }
